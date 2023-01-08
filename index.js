@@ -1,0 +1,11 @@
+const env = require("dotenv").config()
+const { loadHelper } = require("./src/loaders/utility.js")
+const { loadEvents } = require("./src/loaders/events.js")
+const { loadSlashCommands } = require("./src/loaders/slashCommands.js")
+const { bot } = require("./src/loaders/bot")
+loadEvents()
+loadHelper()
+loadSlashCommands()
+bot.login(process.env.token)
+console.log(`Hanging out at process: ${process.pid}`)
+process.traceDeprecation = true
