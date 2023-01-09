@@ -3,7 +3,7 @@ const { ApplicationCommandOptionType, PermissionsBitField, EmbedBuilder } = requ
 module.exports = {
 	name: "ally",
 	category: "core",
-	utilisation: "ally push/pull",
+	utilisation: "ally push/pull/view",
 	description: "About allied clans",
 	options: [
 		{
