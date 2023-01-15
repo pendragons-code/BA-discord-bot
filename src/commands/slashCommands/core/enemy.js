@@ -1,7 +1,7 @@
 const { db } = require("../../../loaders/bot.js")
 const { ApplicationCommandOptionType, PermissionsBitField, EmbedBuilder } = require("discord.js")
 module.exports = {
-	name: "ally",
+	name: "enemy",
 	category: "core",
 	utilisation: "enemy push/pull/view",
 	description: "About enemy clans",
@@ -35,7 +35,7 @@ module.exports = {
 			case "push":
 				if(clan === null) return inter.reply("Provide a clan!")
 				if(!inter.member.permissions.has([PermissionsBitField.Flags.BanMembers]) || !inter.member.permissions.has([PermissionsBitField.Flags.KickMembers])) return inter.reply("You need at least the `Kick Members` or `Ban Members` permission to use this!")
-				if(enemies.includes(clan)) return inter.reply("This clan is already in the system!")
+				if(enemies !== null && enemies.includes(clan)) return inter.reply("This clan is already in the system!")
 				await db.push("BA_enemy", clan)
 				.catch((error) => {
 					console.error(error)
@@ -46,7 +46,7 @@ module.exports = {
 			case "pull":
 				if(clan === null) return inter.reply("Provide a clan!")
 				if(!inter.member.permissions.has([PermissionsBitField.Flags.BanMembers]) || !inter.member.permissions.has([PermissionsBitField.Flags.KickMembers])) return inter.reply("You need at least the `Kick Members` or `Ban Members` permission to use this!")
-				if(!enemies.includes(clan)) return inter.reply("This clan is not in the system!")
+				if(enemies === null || !enemies.includes(clan)) return inter.reply("This clan is not in the system!")
 				await db.pull("BA_enemy", clan)
 				.catch((error) => {
 					console.error(error)

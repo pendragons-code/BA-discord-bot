@@ -35,7 +35,7 @@ module.exports = {
 			case "push":
 				if(clan === null) return inter.reply("Provide a clan!")
 				if(!inter.member.permissions.has([PermissionsBitField.Flags.BanMembers]) || !inter.member.permissions.has([PermissionsBitField.Flags.KickMembers])) return inter.reply("You need at least the `Kick Members` or `Ban Members` permission to use this!")
-				if(alliance.includes(clan)) return inter.reply("This clan is already in the system!")
+				if(alliance !== null && alliance.includes(clan)) return inter.reply("This clan is already in the system!")
 				await db.push("BA_Allies", clan)
 				.catch((error) => {
 					console.error(error)
@@ -46,7 +46,7 @@ module.exports = {
 			case "pull":
 				if(clan === null) return inter.reply("Provide a clan!")
 				if(!inter.member.permissions.has([PermissionsBitField.Flags.BanMembers]) || !inter.member.permissions.has([PermissionsBitField.Flags.KickMembers])) return inter.reply("You need at least the `Kick Members` or `Ban Members` permission to use this!")
-				if(!alliance.includes(clan)) return inter.reply("This clan is not in the system!")
+				if(alliance === null || !alliance.includes(clan)) return inter.reply("This clan is not in the system!")
 				await db.pull("BA_Allies", clan)
 				.catch((error) => {
 					console.error(error)
