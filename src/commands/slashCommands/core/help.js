@@ -6,14 +6,16 @@ module.exports = {
 	description: "A basic help command!",
 	utilisation: "help",
 	async execute({ bot, inter }) {
-		inter.reply("Hello World!")
 		const buttonTest = new EmbedBuilder()
-		buttonTest.setTitle("Hey there! This is a test!")
-	        const addBot = new ButtonBuilder()
+		buttonTest.setTitle("Help Area!")
+		buttonTest.setDescription(`${bot.slashCommands.map(x => `\`${x.name}\``).join(", ")}`)
+		buttonTest.setFooter({ text: `${bot.slashCommands.size} commands available!` })
+		//button
+		const addBot = new ButtonBuilder()
 		.setLabel('Add Bot!')
 		.setCustomId(JSON.stringify({ffb: 'addBot'}))
 		.setStyle('Primary')
 		const row1 = new ActionRowBuilder().addComponents(addBot)
-		inter.channel.send({ embeds: [buttonTest], components: [row1] })
+		inter.reply({ embeds: [buttonTest], components: [row1] })
 	},
 };
